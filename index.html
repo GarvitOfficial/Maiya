@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya AI System Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+        
+        #mermaid-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 800px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            overflow: hidden; /* keep scaled content within container */
+            position: relative; /* for proper panning reference */
+            cursor: grab; /* indicate drag-to-pan */
+            touch-action: none; /* allow custom pointer panning */
+        }
+        
+        #mermaid-container.panning {
+            cursor: grabbing;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .legend h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Maya AI System Architecture</h1>
+        <p class="subtitle">Complete system flowchart showing the Maya AI processing pipeline</p>
+        
+        <div id="mermaid-container">
+            <div class="mermaid">
+                flowchart TD
+                
+                %% --- USER INPUT LAYER --- 
+                A0([User]) --> A1[Microphone Capture] 
+                A1 --> A2[Noise Reduction + Audio Cleanup] 
+                A2 --> A3[Voice Activity Detection VAD] 
+                A3 -->|Speech Detected| A4[Segment Audio Chunks] 
+                
+                %% --- SPEECH-TO-TEXT PIPELINE --- 
+                A4 --> A5[Whisper STT Engine] 
+                A5 --> A6[Text Normalization & Cleanup] 
+                A6 --> A7[Intent + Emotion Inference Natural Language Understanding] 
+                
+                %% --- ROUTING CORE --- 
+                A7 -->|General Conversation| B1[Maya Brain Core] 
+                A7 -->|Command / Action| B2[Execution & Tool Layer] 
+                A7 -->|Vision or Image Mention| B3[Vision Request Router] 
+                
+                %% --- MEMORY + LEARNING --- 
+                B1 --> M1[Short-term Conversation Memory] 
+                B1 --> M2[Long-term Personalization Memory] 
+                M1 --> B1 
+                M2 --> B1 
+                
+                %% --- TOOL LAYER --- 
+                B2 --> T1[Local System Actions] 
+                B2 --> T2[Web/Knowledge Lookup] 
+                B2 --> T3[Program & App Control] 
+                T1 --> B1 
+                T2 --> B1 
+                T3 --> B1 
+                
+                %% --- VISION + OCR PIPELINE --- 
+                B3 --> V1[Image Capture / Upload Input] 
+                V1 --> V2[Image Understanding Module] 
+                V1 --> V3[OCR Text Extraction] 
+                V2 --> B1 
+                V3 --> B1 
+                
+                %% --- EMOTION + RESPONSE FORMATION --- 
+                B1 --> R1[Response Text Generator] 
+                R1 --> R2[Context-based Tone Selector] 
+                R2 --> R3[Emotion Modeling Layer] 
+                R3 --> R4[Speech Formatting Pauses Pitch Prosody Notes] 
+                
+                %% --- TEXT-TO-SPEECH PIPELINE --- 
+                R4 --> S1[Voice Persona Selector] 
+                S1 --> S2[Expressive TTS Engine] 
+                S2 --> S3[Audio Post-Processing Breaths Warmth Presence] 
+                S3 --> S4[Speaker Output] 
+                
+                %% --- USER FEEDBACK LOOP --- 
+                S4 --> A0
+                
+                %% Styling
+                classDef userNode fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px,color:#fff
+                classDef processNode fill:#4ecdc4,stroke:#15aabf,stroke-width:2px,color:#fff
+                classDef memoryNode fill:#ffe066,stroke:#fcc419,stroke-width:2px,color:#2d3436
+                classDef toolNode fill:#a8e6cf,stroke:#55a3ff,stroke-width:2px,color:#2d3436
+                classDef visionNode fill:#dda0dd,stroke:#9370db,stroke-width:2px,color:#fff
+                classDef responseNode fill:#ff8b94,stroke:#ff6b6b,stroke-width:2px,color:#fff
+                classDef ttsNode fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+                
+                class A0 userNode
+                class A1,A2,A3,A4,A5,A6,A7 processNode
+                class B1,B2,B3 processNode
+                class M1,M2 memoryNode
+                class T1,T2,T3 toolNode
+                class V1,V2,V3 visionNode
+                class R1,R2,R3,R4 responseNode
+                class S1,S2,S3,S4 ttsNode
+            </div>
+        </div>
+        
+        <!-- Controls: remove zoom buttons, keep fullscreen only -->
+        <div class="controls">
+            <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+        </div>
+        
+        <div class="legend">
+            <h3>📊 System Components Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff6b6b;"></div>
+                <span><strong>User Interface:</strong> Input/Output points</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #4ecdc4;"></div>
+                <span><strong>Processing Core:</strong> Main AI processing components</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ffe066;"></div>
+                <span><strong>Memory Systems:</strong> Short-term and long-term memory</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #a8e6cf;"></div>
+                <span><strong>Tool Layer:</strong> System integrations and actions</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #dda0dd;"></div>
+                <span><strong>Vision Pipeline:</strong> Image processing and OCR</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff8b94;"></div>
+                <span><strong>Response Formation:</strong> Emotion and context processing</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #74b9ff;"></div>
+                <span><strong>Text-to-Speech:</strong> Voice generation and output</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            themeVariables: {
+                primaryColor: '#4ecdc4',
+                primaryTextColor: '#2d3436',
+                primaryBorderColor: '#15aabf',
+                lineColor: '#636e72',
+                secondaryColor: '#ffe066',
+                tertiaryColor: '#a8e6cf',
+                background: '#ffffff',
+                mainBkg: '#4ecdc4',
+                secondBkg: '#ffe066',
+                tertiaryBkg: '#a8e6cf'
+            }
+        });
+        
+        let currentScale = 1;
+        let panX = 0;
+        let panY = 0;
+        let isPanning = false;
+        let startX = 0;
+        let startY = 0;
+        let startPanX = 0;
+        let startPanY = 0;
+        let contentWidth = 0;
+        let contentHeight = 0;
+        const minScale = 0.4;
+        const maxScale = 6;
+        
+        const container = document.getElementById('mermaid-container');
+        
+        function getTarget() {
+            return container.querySelector('svg') || container.querySelector('.mermaid');
+        }
+        
+        function measureContent() {
+            const target = getTarget();
+            if (!target) return;
+            if (target.tagName && target.tagName.toLowerCase() === 'svg' && target.getBBox) {
+                const bbox = target.getBBox();
+                contentWidth = bbox.width;
+                contentHeight = bbox.height;
+            } else {
+                contentWidth = target.scrollWidth || target.offsetWidth || target.getBoundingClientRect().width;
+                contentHeight = target.scrollHeight || target.offsetHeight || target.getBoundingClientRect().height;
+            }
+        }
+        
+        function clampPan() {
+            if (!contentWidth || !contentHeight) return;
+            const containerW = container.clientWidth;
+            const containerH = container.clientHeight;
+            const scaledW = contentWidth * currentScale;
+            const scaledH = contentHeight * currentScale;
+            const maxX = Math.max(0, (scaledW - containerW) / 2);
+            const maxY = Math.max(0, (scaledH - containerH) / 2);
+            panX = Math.min(maxX, Math.max(-maxX, panX));
+            panY = Math.min(maxY, Math.max(-maxY, panY));
+        }
+        
+        function updateTransform() {
+            const target = getTarget();
+            if (!target) return;
+            clampPan();
+            target.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+            target.style.transformOrigin = 'center center';
+            target.style.transformBox = 'fill-box';
+        }
+        
+        function resetZoom() {
+            currentScale = 1;
+            panX = 0;
+            panY = 0;
+            updateTransform();
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Desktop: wheel zoom centered on cursor
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const rect = container.getBoundingClientRect();
+            const cx = e.clientX - rect.left;
+            const cy = e.clientY - rect.top;
+            const factor = Math.exp(-e.deltaY * 0.001); // smooth zoom
+            const newScaleUnclamped = currentScale * factor;
+            const newScale = Math.min(maxScale, Math.max(minScale, newScaleUnclamped));
+
+            // Keep cursor point stable: compute content point and recompute pan
+            const contentX = (cx - panX) / currentScale;
+            const contentY = (cy - panY) / currentScale;
+            currentScale = newScale;
+            panX = cx - contentX * currentScale;
+            panY = cy - contentY * currentScale;
+            updateTransform();
+        }, { passive: false });
+        
+        // Pointer-based panning (mouse or single touch)
+        const activePointers = new Map(); // id -> {x, y}
+        let isPinching = false;
+        let pinchStartDist = 0;
+        let pinchStartScale = 1;
+        let lastCenterX = 0;
+        let lastCenterY = 0;
+        
+        container.addEventListener('pointerdown', (e) => {
+            activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (activePointers.size === 2) {
+                // Start pinch
+                isPinching = true;
+                pinchStartScale = currentScale;
+                const pts = [...activePointers.values()];
+                pinchStartDist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+                const rect = container.getBoundingClientRect();
+                lastCenterX = ((pts[0].x + pts[1].x) / 2) - rect.left;
+                lastCenterY = ((pts[0].y + pts[1].y) / 2) - rect.top;
+                isPanning = false;
+            } else if (!isPinching) {
+                // Start panning for single pointer
+                if (e.pointerType === 'mouse' && e.button !== 0) return; // left click
+                isPanning = true;
+                container.classList.add('panning');
+                startX = e.clientX;
+                startY = e.clientY;
+                startPanX = panX;
+                startPanY = panY;
+            }
+            try { container.setPointerCapture(e.pointerId); } catch {}
+        });
+        
+        container.addEventListener('pointermove', (e) => {
+            if (activePointers.has(e.pointerId)) {
+                activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            }
+            if (isPinching && activePointers.size === 2) {
+                const pts = [...activePointers.values()];
+                const rect = container.getBoundingClientRect();
+                const centerX = ((pts[0].x + pts[1].x) / 2) - rect.left;
+                const centerY = ((pts[0].y + pts[1].y) / 2) - rect.top;
+                const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+                const scaleFactor = dist / pinchStartDist;
+                const newScaleUnclamped = pinchStartScale * scaleFactor;
+                const newScale = Math.min(maxScale, Math.max(minScale, newScaleUnclamped));
+                
+                // Follow center translation
+                panX += centerX - lastCenterX;
+                panY += centerY - lastCenterY;
+                lastCenterX = centerX;
+                lastCenterY = centerY;
+                
+                // Anchor zoom at center
+                const contentX = (centerX - panX) / currentScale;
+                const contentY = (centerY - panY) / currentScale;
+                currentScale = newScale;
+                panX = centerX - contentX * currentScale;
+                panY = centerY - contentY * currentScale;
+                updateTransform();
+            } else if (isPanning) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                panX = startPanX + dx;
+                panY = startPanY + dy;
+                updateTransform();
+            }
+        });
+        
+        function endPointer(e) {
+            if (activePointers.has(e.pointerId)) {
+                activePointers.delete(e.pointerId);
+            }
+            if (isPinching && activePointers.size < 2) {
+                isPinching = false;
+            }
+            if (isPanning && activePointers.size === 0) {
+                isPanning = false;
+                container.classList.remove('panning');
+            }
+            try { container.releasePointerCapture(e.pointerId); } catch {}
+        }
+        container.addEventListener('pointerup', endPointer);
+        container.addEventListener('pointerleave', endPointer);
+        container.addEventListener('pointercancel', endPointer);
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '0':
+                        e.preventDefault();
+                        resetZoom();
+                        break;
+                }
+            }
+        });
+        
+        // Double-click to reset
+        container.addEventListener('dblclick', (e) => {
+            resetZoom();
+        });
+        
+        // Smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Loading animation
+        window.addEventListener('load', function() {
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 0.5s ease-in-out';
+            setTimeout(() => {
+                container.style.opacity = '1';
+                measureContent();
+                updateTransform();
+            }, 100);
+        });
+        
+        // Ensure zoom works after Mermaid renders the SVG
+        const mermaidRenderObserver = new MutationObserver(() => {
+            if (getTarget()) {
+                measureContent();
+                updateTransform();
+                mermaidRenderObserver.disconnect();
+            }
+        });
+        mermaidRenderObserver.observe(container, { childList: true, subtree: true });
+    </script>
+</body>
+</html>
