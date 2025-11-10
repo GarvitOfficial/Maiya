@@ -110,7 +110,7 @@ speech_recognizer = gmtSpeechReco(model_size="small")  # More accurate
 This is a **parking project** currently under active development. Features being worked on:
 
 ### 🎯 Maiya AI System Integration (From Architecture)
-Based on the [Maiya AI System Architecture](index.html), this speech recognition module integrates with:
+Based on the [Maiya AI System Architecture](https://xrpgarv.me/Maiya/), this speech recognition module integrates with:
 
 - [x] **Microphone Capture** ✅ (Implemented)
 - [x] **Noise Reduction + Audio Cleanup** ✅ (Basic implementation)
